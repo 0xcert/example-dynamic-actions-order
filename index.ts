@@ -32,11 +32,6 @@ btnSignOrder.addEventListener("click", async () => {
     return;
   }
 
-  if (config.account2Id === "") {
-    printWarning("No account2Id defined. Please set it in src/config.ts file.");
-    return;
-  }
-
   if (provider.accountId !== config.account1Id) {
     printWarning("Select account1 in metamask to sign this order.");
     return;
@@ -54,20 +49,8 @@ btnSignOrder.addEventListener("click", async () => {
 });
 
 btnPerformOrder.addEventListener("click", async () => {
-  if (config.assetLedgerId === "") {
-    printWarning(
-      "No assetLedgerSource defined. Either deploy a new asset ledger or set asset ledger source in src/config.ts file."
-    );
-    return;
-  }
-
-  if (config.account2Id === "") {
-    printWarning("No account2Id defined. Please set it in src/config.ts file.");
-    return;
-  }
-
-  if (provider.accountId !== config.account2Id) {
-    printWarning("Select account2 in metamask to perform this order.");
+  if (!config.signature) {
+    printWarning("No signature provided. Please sign the order first.");
     return;
   }
 
